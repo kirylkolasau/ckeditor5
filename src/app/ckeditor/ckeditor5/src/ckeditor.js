@@ -11,6 +11,8 @@ import Link from '@ckeditor/ckeditor5-link/src/link.js';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph.js';
 import SourceEditing from '@ckeditor/ckeditor5-source-editing/src/sourceediting.js';
 
+import InsertImage from './customPlugin.js'
+
 class Editor extends ClassicEditor {}
 
 // Plugins to include in the build.
@@ -21,7 +23,8 @@ Editor.builtinPlugins = [
 	Italic,
 	Link,
 	Paragraph,
-	SourceEditing
+	SourceEditing,
+	InsertImage
 ];
 
 // Editor.defaultConfig = {

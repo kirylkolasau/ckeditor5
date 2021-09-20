@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import SourceEditing from '@ckeditor/ckeditor5-source-editing/src/sourceediting';
+//import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+//import SourceEditing from '@ckeditor/ckeditor5-source-editing/src/sourceediting';
 import Editor from './ckeditor5/build/ckeditor.js';
 
 @Component({
@@ -12,7 +12,7 @@ export class CkeditorComponent {
   public CKEditor = Editor;
 
   public config = {
-    plugins: [ SourceEditing],
+    //plugins: [ SourceEditing],
     toolbar: {
       items: [
         'heading',
@@ -20,7 +20,8 @@ export class CkeditorComponent {
         'bold',
         'italic',
         '|',
-        'sourceEditing'
+        'sourceEditing',
+        'insertImage'
       ]
     },
     // heading: {
