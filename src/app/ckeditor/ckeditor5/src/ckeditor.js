@@ -10,7 +10,7 @@ import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic.js';
 import Link from '@ckeditor/ckeditor5-link/src/link.js';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph.js';
 import SourceEditing from '@ckeditor/ckeditor5-source-editing/src/sourceediting.js';
-
+import Mention from '@ckeditor/ckeditor5-mention/src/mention.js';
 import InsertImage from './customPlugin.js'
 
 class Editor extends ClassicEditor {}
@@ -24,6 +24,7 @@ Editor.builtinPlugins = [
 	Link,
 	Paragraph,
 	SourceEditing,
+	Mention,
 	InsertImage
 ];
 
