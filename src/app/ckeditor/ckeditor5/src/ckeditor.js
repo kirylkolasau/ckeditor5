@@ -1,7 +1,3 @@
-/**
- * @license Copyright (c) 2014-2021, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
- */
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor.js';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials.js';
@@ -11,7 +7,9 @@ import Link from '@ckeditor/ckeditor5-link/src/link.js';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph.js';
 import SourceEditing from '@ckeditor/ckeditor5-source-editing/src/sourceediting.js';
 import Mention from '@ckeditor/ckeditor5-mention/src/mention.js';
-import InsertImage from './customPlugin.js'
+import SettingAlert from './customPlugin.js';
+import SimpleBox from './simpleBoxPlagin.js';
+
 
 class Editor extends ClassicEditor {}
 
@@ -25,7 +23,8 @@ Editor.builtinPlugins = [
 	Paragraph,
 	SourceEditing,
 	Mention,
-	InsertImage
+	SettingAlert,
+	SimpleBox
 ];
 
 // Editor.defaultConfig = {

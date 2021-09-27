@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 //import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 //import SourceEditing from '@ckeditor/ckeditor5-source-editing/src/sourceediting';
-import Editor from './ckeditor5/build/ckeditor.js';
+import Mention from '@ckeditor/ckeditor5-mention/src/mention.js';
 
+import Editor from './ckeditor5/build/ckeditor.js';
 @Component({
   selector: 'app-ckeditor',
   templateUrl: './ckeditor.component.html',
@@ -10,9 +11,10 @@ import Editor from './ckeditor5/build/ckeditor.js';
 })
 export class CkeditorComponent {
   public CKEditor = Editor;
-
+  editor: any;
   public config = {
     //plugins: [ SourceEditing],
+
     toolbar: {
       items: [
         'heading',
@@ -21,7 +23,18 @@ export class CkeditorComponent {
         'italic',
         '|',
         'sourceEditing',
-        'insertImage'
+        '|',
+        'setting',
+        'simpleBox'
+      ],
+
+    },
+    mention: {
+      feeds: [
+        {
+          marker: '$',
+          feed: this.getFeedItems
+        }
       ]
     },
     // heading: {
@@ -31,38 +44,49 @@ export class CkeditorComponent {
     //     { model: 'heading3', view: 'h3', title: 'heading3', class: 'ck-heading_heading3' }
     //   ]
     // },
-   // toolbar: [ 'sourceEditing', 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
-    // heading: {
-    //     options: [
-    //         { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-    //         { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-    //         { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
-    //     ]
-    // },
-    // plugins: [ SourceEditing ],
-    // toolbar: {
-    //   items: [
-    //     'sourceEditing'
-    //   ]
-    // },
-    // This value must be kept in sync with the language defined in webpack.config.js.
+
     language: 'en'
 
-    // items: [
-    //     'heading', '|',
-    //     'fontfamily', 'fontsize', '|',
-    //     'alignment', '|',
-    //     'fontColor', 'fontBackgroundColor', '|',
-    //     'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
-    //     'link', '|',
-    //     'outdent', 'indent', '|',
-    //     'bulletedList', 'numberedList', 'todoList', '|',
-    //     'code', 'codeBlock', '|',
-    //     'insertTable', '|',
-    //     'uploadImage', 'blockQuote', '|',
-    //     'undo', 'redo'
-    // ],
-    // shouldNotGroupWhenFull: true
-
   };
+
+
+
+  public getFeedItems(queryText) {
+    const items = ["$Model","$ComputerName","$FirstName","$Username"
+      // { id: '{$Model}', userId: '1', name: '{$user}' },
+      // { id: '{$ComputerName}', userId: '2', name: '{$project}' },
+      // { id: '{$FirstName}', userId: '3', name: '{$object}' },
+      // { id: '{$Username}', userId: '4', name: '{$slot}' }
+    ];
+
+    return new Promise(resolve => {
+      setTimeout(() => {
+        const itemsToDisplay = items
+          .filter(isItemMatching)
+          .slice(0, 10);
+        resolve(itemsToDisplay);
+      }, 100);
+    });
+
+
+    function isItemMatching(item) {
+      const searchString = queryText.toLowerCase();
+      return (
+        item.toLowerCase().includes(searchString)
+        // item.name.toLowerCase().includes(searchString) ||
+        // item.id.toLowerCase().includes(searchString)
+      );
+    }
+  }
+
+  onReady(editor): void {
+    this.editor = editor;
+    console.log("onReady", this.editor);
+  }
+
+  onSave() {
+    this.editor.model.change( writer => {
+      this.editor.model.insertContent( writer.createText( 'x' ) );
+    });
+  }
 }
